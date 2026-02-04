@@ -1,12 +1,31 @@
 const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const card = document.querySelector(".card");
-    const hoverSound = document.getElementById("hoverSound");
+    const noSound = document.getElementById("noSound");
     const yesSound = document.getElementById("yesSound");
+    const backgroundMusic = document.getElementById("backgroundMusic");
+    const musicToggle = document.getElementById("musicToggle");
+
+    // Auto-play background music with fallback
+    backgroundMusic.volume = 0.75; // Set to 30% volume
+    backgroundMusic.play().catch(() => {
+      // Auto-play might be blocked, user can click toggle
+    });
+
+    // Toggle background music
+    musicToggle.addEventListener("click", () => {
+      if (backgroundMusic.paused) {
+        backgroundMusic.play();
+        musicToggle.textContent = "🎵";
+      } else {
+        backgroundMusic.pause();
+        musicToggle.textContent = "🔇";
+      }
+    });
 
     noBtn.addEventListener("mouseenter", () => {
-      hoverSound.currentTime = 0;
-      hoverSound.play();
+      noSound.currentTime = 0;
+      noSound.play();
 
       const cardRect = card.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
@@ -28,8 +47,32 @@ const noBtn = document.getElementById("no");
       });
 
       setTimeout(() => {
-        alert("YAY 💕 I can’t wait for Valentine’s Day with you!");
+        showModal();
       }, 500);
+    });
+
+    // Modal functionality
+    const successModal = document.getElementById("successModal");
+    const modalClose = document.getElementById("modalClose");
+    const closeBtn = document.querySelector(".modal-close");
+
+    function showModal() {
+      successModal.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function hideModal() {
+      successModal.classList.remove("show");
+      document.body.style.overflow = "auto";
+    }
+
+    modalClose.addEventListener("click", hideModal);
+    closeBtn.addEventListener("click", hideModal);
+
+    successModal.addEventListener("click", (e) => {
+      if (e.target === successModal) {
+        hideModal();
+      }
     });
 
     function createHeart() {
@@ -45,4 +88,4 @@ const noBtn = document.getElementById("no");
       setTimeout(() => heart.remove(), 8000);
     }
 
-    setInterval(createHeart, 380);
+    setInterval(createHeart, 250);

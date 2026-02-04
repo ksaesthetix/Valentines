@@ -17,7 +17,7 @@
 <body>
 
   <div class="card">
-    <div class="emoji">🐱❤️</div>
+    <div class="emoji">🐱❤️</div>   
     <h2>Kinnari,<br>will you be my Valentine?</h2>
 
     <div class="buttons">
@@ -29,8 +29,29 @@
   </div>
 
   <!-- Sounds -->
-  <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-voice-laugh-343.mp3"></audio>
-  <audio id="yesSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+  <audio id="noSound" crossorigin="anonymous" preload="auto">
+    <source src="crying-man-effect.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="yesSound" crossorigin="anonymous" preload="auto">
+    <source src="cute-character-wee.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="backgroundMusic" crossorigin="anonymous" preload="auto" loop>
+    <source src="background-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Background Music Toggle -->
+  <button id="musicToggle" class="music-toggle" title="Toggle background music">🎵</button>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-emoji">💕</div>
+      <h1 class="modal-title">YAY!</h1>
+      <p class="modal-text">I can't wait for Valentine's Day with you!</p>
+      <button id="modalClose" class="modal-button">Close</button>
+    </div>
+  </div>
 
   <script src="scripts.js"></script>
 
