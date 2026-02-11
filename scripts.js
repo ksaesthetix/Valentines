@@ -25,12 +25,23 @@ function startBackgroundMusic() {
 }
 
 // Add event listeners for first interaction
+// Start music only on clear user gestures. Some browsers do not
+// treat mousemove as a user gesture for audio autoplay permission.
 document.addEventListener("click", startBackgroundMusic);
-document.addEventListener("mousemove", startBackgroundMusic);
+document.addEventListener("touchstart", startBackgroundMusic);
+document.addEventListener("keydown", startBackgroundMusic);
 
 noBtn.addEventListener("mouseenter", () => {
-  noSound.currentTime = 0;
-  noSound.play();
+  // Only play sound if the user already interacted (permission granted)
+  if (musicStarted) {
+    try {
+      noSound.currentTime = 0;
+      noSound.play();
+    } catch (e) {
+      // ignore play errors when not allowed
+      console.log('noSound play prevented:', e);
+    }
+  }
 
   const cardRect = card.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
